@@ -1,0 +1,26 @@
+site_name: Forge CLI Documentation
+site_description: The Linux for AI - Documentation
+site_url: https://docs.forge-cli.com
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - toc.integrate
+    - search.suggest
+    - search.highlight
+
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Installation: getting-started/installation.md
+    - Quickstart: getting-started/quickstart.md
+  - Architecture: architecture/index.md
+  - Plugins:
+    - Creating a Plugin: plugins/create.md
+    - API Reference: plugins/api.md
+  - MCP Layer: mcp/index.md
+
+plugins:
+  - search
