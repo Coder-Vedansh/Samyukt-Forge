@@ -2,15 +2,11 @@ import typer
 from rich import print
 
 from cli.config import app as config_app
-from cli.providers import providers_app, models_app
-from cli.packages import packages_app, extensions_app, marketplace_app
+from cli.packages import extensions_app, marketplace_app, packages_app
+from cli.providers import models_app, providers_app
 from cli.runtime import memory_app, workflow_app
 
-app = typer.Typer(
-    name="forge", 
-    help="Forge CLI - The Linux for AI",
-    no_args_is_help=True
-)
+app = typer.Typer(name="forge", help="Forge CLI - The Linux for AI", no_args_is_help=True)
 
 # Mount all the sub-commands
 app.add_typer(config_app, name="config")
@@ -22,16 +18,19 @@ app.add_typer(marketplace_app, name="marketplace")
 app.add_typer(memory_app, name="memory")
 app.add_typer(workflow_app, name="workflow")
 
+
 @app.command()
 def init():
     """Initializes a new Forge Workspace in the current directory."""
     print("[bold green]Initialized empty Forge workspace.[/bold green]")
+
 
 @app.command()
 def run(prompt: str):
     """Main execution command for passing prompts to the Default Agent."""
     print(f"[dim]Running Agent with prompt:[/dim] [yellow]{prompt}[/yellow]")
     print("Executing via Forge Runtime...")
+
 
 @app.command()
 def doctor():
@@ -40,6 +39,7 @@ def doctor():
     print("Kernel: [green]OK[/green]")
     print("Package Manager: [green]OK[/green]")
     print("Runtime: [green]OK[/green]")
+
 
 if __name__ == "__main__":
     app()

@@ -1,10 +1,12 @@
-from typing import Dict, Type, Any, List
+from typing import Any, Dict, List, Type
+
 
 class ServiceRegistry:
     """
     Maps SDK interfaces (e.g., ILLMProvider) to concrete implementations provided by plugins.
     Allows the Kernel to query "What provides ILLMProvider?".
     """
+
     def __init__(self):
         # Maps Interface Type -> List of Concrete Instances
         self._services: Dict[Type, List[Any]] = {}

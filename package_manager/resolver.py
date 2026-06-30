@@ -1,10 +1,12 @@
-from typing import Dict, List
 import re
+from typing import Any, Dict, List
+
 
 class DependencyResolver:
     """
     Resolves dependency graphs and checks Semantic Versioning compatibility.
     """
+
     def __init__(self):
         # A real implementation would parse ^1.2.3, ~1.2.3, >=1.0.0
         # and build a full topological graph of dependencies.
@@ -17,16 +19,16 @@ class DependencyResolver:
         # Simplified logic for Phase 5 blueprint
         if required == "latest" or required == "*":
             return True
-            
-        req_clean = re.sub(r'[\^\~\=\>]+', '', required)
-        
-        req_parts = req_clean.split('.')
-        avail_parts = available.split('.')
-        
+
+        req_clean = re.sub(r"[\^\~\=\>]+", "", required)
+
+        req_parts = req_clean.split(".")
+        avail_parts = available.split(".")
+
         # Naive major version check
         if len(req_parts) > 0 and len(avail_parts) > 0:
             return req_parts[0] == avail_parts[0]
-            
+
         return False
 
     def resolve_graph(self, dependencies: Dict[str, str], remote_registry: Any) -> List[str]:

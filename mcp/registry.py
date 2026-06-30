@@ -1,10 +1,13 @@
-from typing import Dict, Any, List
+from typing import Any, Dict, List
+
 from sdk.tool import ITool
+
 
 class MCPToolRegistry:
     """
     Maps Forge's internal ITool interfaces to the JSON-RPC MCP format.
     """
+
     def __init__(self):
         self._tools: Dict[str, ITool] = {}
 
@@ -21,25 +24,27 @@ class MCPToolRegistry:
         mcp_tools = []
         for name, tool in self._tools.items():
             parameters = tool.get_parameters()
-            
+
             # Convert internal ToolParameter to JSON schema properties
             properties = {}
             required = []
             for param_name, param_def in parameters.items():
                 properties[param_name] = {
                     "type": param_def.type,
-                    "description": param_def.description
+                    "description": param_def.description,
                 }
                 if param_def.required:
                     required.append(param_name)
 
-            mcp_tools.append({
-                "name": name,
-                "description": tool.description,
-                "inputSchema": {
-                    "type": "object",
-                    "properties": properties,
-                    "required": required
+            mcp_tools.append(
+                {
+                    "name": name,
+                    "description": tool.description,
+                    "inputSchema": {
+                        "type": "object",
+                        "properties": properties,
+                        "required": required,
+                    },
                 }
-            })
+            )
         return mcp_tools

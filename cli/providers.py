@@ -5,6 +5,7 @@ from rich.table import Table
 providers_app = typer.Typer(help="Manage AI Providers (OpenAI, Anthropic, Ollama)")
 models_app = typer.Typer(help="Manage installed Models")
 
+
 @providers_app.command("list")
 def list_providers():
     """Lists all available AI providers installed via plugins."""
@@ -14,6 +15,7 @@ def list_providers():
     table.add_row("OpenAI", "Active")
     table.add_row("Anthropic", "Active")
     print(table)
+
 
 @models_app.command("list")
 def list_models():

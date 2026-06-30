@@ -1,7 +1,9 @@
-import uuid
 import time
+import uuid
 from typing import Any, Callable, Dict, List
+
 from pydantic import BaseModel, Field
+
 
 class Event(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
@@ -9,10 +11,12 @@ class Event(BaseModel):
     payload: Dict[str, Any]
     timestamp: float = Field(default_factory=time.time)
 
+
 class EventBus:
     """
     Handles publish/subscribe for asynchronous events across the Kernel and Plugins.
     """
+
     def __init__(self):
         self.subscribers: Dict[str, List[Callable[[Event], None]]] = {}
 

@@ -1,10 +1,12 @@
 import time
-from typing import Dict, Any
+from typing import Any, Dict
+
 
 class ExecutionMetrics:
     """
     Collects telemetry data for task and workflow execution.
     """
+
     def __init__(self):
         self.start_time: float = 0.0
         self.end_time: float = 0.0

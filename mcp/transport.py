@@ -1,12 +1,14 @@
-import sys
 import json
-from typing import Callable, Any, Dict
+import sys
+from typing import Any, Callable, Dict
+
 
 class StdioTransport:
     """
     Standard I/O transport layer for local MCP interactions.
     Reads JSON-RPC messages from stdin and writes to stdout.
     """
+
     def __init__(self):
         self._on_message: Callable[[Dict[str, Any]], None] = None
 

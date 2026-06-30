@@ -1,9 +1,11 @@
 import threading
 
+
 class CancellationToken:
     """
     Enables graceful cooperative cancellation of running tasks.
     """
+
     def __init__(self):
         self._is_cancelled = False
         self._lock = threading.Lock()

@@ -1,10 +1,13 @@
-from typing import List, Dict, Any
+from typing import Dict, List
+
 from runtime.state import TaskContext, TaskState
+
 
 class TaskScheduler:
     """
     Schedules tasks based on dependencies and puts them in an execution queue.
     """
+
     def __init__(self):
         self._tasks: Dict[str, TaskContext] = {}
         self._queue: List[str] = []
@@ -12,8 +15,8 @@ class TaskScheduler:
     def schedule(self, task_id: str, dependencies: List[str] = None) -> None:
         context = TaskContext(task_id=task_id, state=TaskState.PENDING)
         self._tasks[task_id] = context
-        
-        # For simplicity, just append to queue. 
+
+        # For simplicity, just append to queue.
         # A real DAG scheduler would verify all dependencies are SUCCESS before queuing.
         self._queue.append(task_id)
 

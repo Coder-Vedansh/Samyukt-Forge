@@ -1,11 +1,12 @@
-import os
 from pathlib import Path
-from typing import List, Dict
+from typing import Dict, List
+
 
 class PluginDiscovery:
     """
     Scans the filesystem and Python entry points to find installed plugins.
     """
+
     def __init__(self, plugins_dir: str = ".forge/plugins"):
         self.plugins_dir = Path(plugins_dir)
 
@@ -19,11 +20,8 @@ class PluginDiscovery:
 
         for item in self.plugins_dir.iterdir():
             if item.is_dir() and (item / "__init__.py").exists():
-                plugins.append({
-                    "name": item.name,
-                    "path": str(item)
-                })
-                
-        # Future: Also scan standard python `importlib.metadata.entry_points` 
+                plugins.append({"name": item.name, "path": str(item)})
+
+        # Future: Also scan standard python `importlib.metadata.entry_points`
         # looking for the 'forge.plugins' group.
         return plugins

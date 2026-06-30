@@ -1,10 +1,13 @@
-from typing import Dict, List, Set
+from typing import Dict, Set
+
 from kernel.errors.exceptions import PermissionDeniedError
+
 
 class PermissionManifest:
     """
     Defines the capabilities a specific plugin or agent is allowed to access.
     """
+
     def __init__(self, owner_id: str):
         self.owner_id = owner_id
         self.allowed_scopes: Set[str] = set()
@@ -18,10 +21,12 @@ class PermissionManifest:
     def has_permission(self, scope: str) -> bool:
         return scope in self.allowed_scopes or "*" in self.allowed_scopes
 
+
 class SecurityManager:
     """
     Centralized Security Manager that intercepts commands to enforce permissions.
     """
+
     def __init__(self):
         self._manifests: Dict[str, PermissionManifest] = {}
 

@@ -1,13 +1,16 @@
 from abc import ABC, abstractmethod
 from typing import Any, Dict, List
 
+
 class MemoryEntry(Dict[str, Any]):
     pass
+
 
 class IMemoryProvider(ABC):
     """
     Interface for short-term and long-term memory systems (e.g. Vector DBs, Redis).
     """
+
     @property
     @abstractmethod
     def provider_name(self) -> str:

@@ -1,11 +1,14 @@
 from abc import ABC, abstractmethod
 from typing import Any, Dict, List
+
 from sdk.tool import ITool
+
 
 class IAgent(ABC):
     """
     Interface representing a discrete agentic entity.
     """
+
     @property
     @abstractmethod
     def agent_id(self) -> str:

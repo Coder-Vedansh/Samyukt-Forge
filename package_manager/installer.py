@@ -1,11 +1,11 @@
-import subprocess
-import os
 from pathlib import Path
+
 
 class Installer:
     """
     Handles the physical installation and uninstallation of packages.
     """
+
     def __init__(self, install_dir: str = ".forge/plugins"):
         self.install_dir = Path(install_dir)
         self.install_dir.mkdir(parents=True, exist_ok=True)

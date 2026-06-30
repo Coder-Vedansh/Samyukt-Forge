@@ -1,12 +1,14 @@
-from package_manager.manifest import ManifestManager
-from package_manager.installer import Installer
 from package_manager.client import RegistryClient
+from package_manager.installer import Installer
+from package_manager.manifest import ManifestManager
 from package_manager.resolver import DependencyResolver
+
 
 class PackageManagerCLI:
     """
     Entry points for the `forge <command>` package manager CLI commands.
     """
+
     def __init__(self, workspace_dir: str = "."):
         self.manifest = ManifestManager(workspace_dir)
         self.installer = Installer()
@@ -17,7 +19,7 @@ class PackageManagerCLI:
         print(f"Resolving {package_name}@{version}...")
         info = await self.client.get_package_info(package_name)
         target_version = info["latest"] if version == "latest" else version
-        
+
         success = self.installer.install(package_name, target_version)
         if success:
             self.manifest.add_dependency(package_name, f"^{target_version}")
@@ -31,7 +33,9 @@ class PackageManagerCLI:
 
     async def update(self, package_name: str = None):
         """Updates a specific package, or all packages if None is provided."""
-        packages_to_update = [package_name] if package_name else list(self.manifest.load().dependencies.keys())
+        packages_to_update = (
+            [package_name] if package_name else list(self.manifest.load().dependencies.keys())
+        )
         for pkg in packages_to_update:
             info = await self.client.get_package_info(pkg)
             self.installer.install(pkg, info["latest"])

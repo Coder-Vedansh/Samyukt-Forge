@@ -1,16 +1,19 @@
 import uuid
 from typing import Any, Callable, Dict, List
 
+
 class Event:
     def __init__(self, name: str, payload: Dict[str, Any]):
         self.id = str(uuid.uuid4())
         self.name = name
         self.payload = payload
 
+
 class EventBus:
     """
     Handles publish/subscribe for asynchronous events across the Kernel and Plugins.
     """
+
     def __init__(self):
         self.subscribers: Dict[str, List[Callable[[Event], None]]] = {}
 
@@ -24,16 +27,19 @@ class EventBus:
             for callback in self.subscribers[event.name]:
                 callback(event)
 
+
 class Command:
     def __init__(self, name: str, payload: Dict[str, Any]):
         self.id = str(uuid.uuid4())
         self.name = name
         self.payload = payload
 
+
 class CommandBus:
     """
     Handles 1:1 request/response commands (synchronous).
     """
+
     def __init__(self):
         self.handlers: Dict[str, Callable[[Command], Any]] = {}
 

@@ -1,9 +1,11 @@
-from typing import Dict, Any, List
+from typing import Any, Dict, List
+
 
 class RegistryClient:
     """
     Communicates with the Forge Plugin Marketplace (or PyPI) to search and fetch metadata.
     """
+
     def __init__(self, registry_url: str = "https://registry.forge-cli.com"):
         self.registry_url = registry_url
 
@@ -12,7 +14,11 @@ class RegistryClient:
         # Simulated response for blueprint
         return [
             {"name": "forge-openai", "version": "1.0.0", "description": "OpenAI Provider Plugin"},
-            {"name": "forge-langgraph", "version": "0.9.1", "description": "LangGraph Orchestrator"}
+            {
+                "name": "forge-langgraph",
+                "version": "0.9.1",
+                "description": "LangGraph Orchestrator",
+            },
         ]
 
     async def get_package_info(self, package_name: str) -> Dict[str, Any]:

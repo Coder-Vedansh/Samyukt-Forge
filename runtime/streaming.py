@@ -1,9 +1,11 @@
-from typing import AsyncGenerator, Any
+from typing import Any, AsyncGenerator
+
 
 class StreamContext:
     """
     Interface for producing and consuming streamed partial data (e.g. LLM tokens).
     """
+
     def __init__(self):
         self._chunks = []
 

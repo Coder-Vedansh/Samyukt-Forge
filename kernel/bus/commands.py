@@ -1,8 +1,11 @@
-import uuid
 import time
+import uuid
 from typing import Any, Callable, Dict
+
 from pydantic import BaseModel, Field
+
 from kernel.errors.exceptions import CommandNotRegisteredError
+
 
 class Command(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
@@ -10,10 +13,12 @@ class Command(BaseModel):
     payload: Dict[str, Any]
     timestamp: float = Field(default_factory=time.time)
 
+
 class CommandBus:
     """
     Handles 1:1 request/response commands (synchronous).
     """
+
     def __init__(self):
         self.handlers: Dict[str, Callable[[Command], Any]] = {}
 

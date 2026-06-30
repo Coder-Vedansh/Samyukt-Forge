@@ -1,11 +1,14 @@
 import json
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Dict
+
 from pydantic import BaseModel
+
 
 class PluginDependency(BaseModel):
     name: str
     version_specifier: str
+
 
 class PluginManifest(BaseModel):
     name: str
@@ -13,21 +16,25 @@ class PluginManifest(BaseModel):
     description: str
     dependencies: Dict[str, str] = {}
 
+
 class ManifestManager:
     """
     Manages the forge.json file which acts like package.json for the workspace.
     """
+
     def __init__(self, workspace_dir: str):
         self.manifest_path = Path(workspace_dir) / "forge.json"
 
     def load(self) -> PluginManifest:
         if not self.manifest_path.exists():
-            return PluginManifest(name="forge-workspace", version="1.0.0", description="Local Forge Workspace")
-        with open(self.manifest_path, 'r') as f:
+            return PluginManifest(
+                name="forge-workspace", version="1.0.0", description="Local Forge Workspace"
+            )
+        with open(self.manifest_path, "r") as f:
             return PluginManifest(**json.load(f))
 
     def save(self, manifest: PluginManifest) -> None:
-        with open(self.manifest_path, 'w') as f:
+        with open(self.manifest_path, "w") as f:
             f.write(manifest.model_dump_json(indent=2))
 
     def add_dependency(self, name: str, version: str) -> None:

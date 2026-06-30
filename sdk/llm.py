@@ -1,23 +1,27 @@
 from abc import ABC, abstractmethod
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
+
 # pyrefly: ignore [missing-import]
 from pydantic import BaseModel
+
 
 class LLMMessage(BaseModel):
     role: str
     content: str
+
 
 class LLMResponse(BaseModel):
     content: str
     usage: Dict[str, int]
     model_name: str
 
+
 class ILLMProvider(ABC):
     """
     Interface for Large Language Model providers.
     Plugins wrapping OpenAI, Anthropic, Ollama, etc. must implement this.
     """
-    
+
     @abstractmethod
     def get_provider_name(self) -> str:
         pass

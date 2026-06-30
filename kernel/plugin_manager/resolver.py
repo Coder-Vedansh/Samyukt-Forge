@@ -1,11 +1,14 @@
-from typing import List, Dict, Set
-from sdk.plugin import PluginMetadata
+from typing import Dict, List, Set
+
 from kernel.errors.exceptions import PluginLoadError
+from sdk.plugin import PluginMetadata
+
 
 class PluginResolver:
     """
     Resolves plugin dependency graphs using Topological Sort.
     """
+
     def __init__(self):
         pass
 
@@ -16,7 +19,7 @@ class PluginResolver:
         """
         graph: Dict[str, List[str]] = {p.name: p.dependencies for p in plugins_meta}
         meta_map = {p.name: p for p in plugins_meta}
-        
+
         visited: Set[str] = set()
         temp_mark: Set[str] = set()
         sorted_order: List[PluginMetadata] = []

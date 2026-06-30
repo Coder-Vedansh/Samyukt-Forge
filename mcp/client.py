@@ -1,11 +1,13 @@
-import subprocess
 import json
-from typing import Dict, Any, List
+import subprocess
+from typing import Any, Dict, List
+
 
 class MCPClient:
     """
     Connects to external MCP servers to import their tools into Forge.
     """
+
     def __init__(self, command: List[str]):
         """
         Initialize with the command required to start the remote MCP server (e.g., ['npx', '-y', '@modelcontextprotocol/server-postgres'])
@@ -16,12 +18,9 @@ class MCPClient:
 
     def connect(self) -> None:
         self._process = subprocess.Popen(
-            self.command,
-            stdin=subprocess.PIPE,
-            stdout=subprocess.PIPE,
-            text=True
+            self.command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, text=True
         )
-        
+
         # Send initialize
         init_req = {
             "jsonrpc": "2.0",
@@ -30,8 +29,8 @@ class MCPClient:
             "params": {
                 "protocolVersion": "2024-11-05",
                 "clientInfo": {"name": "forge-cli", "version": "1.0.0"},
-                "capabilities": {}
-            }
+                "capabilities": {},
+            },
         }
         self._send(init_req)
         # We would then block and read the response.
@@ -44,15 +43,10 @@ class MCPClient:
 
     def get_remote_tools(self) -> List[Dict[str, Any]]:
         """Requests the tools/list from the connected server."""
-        req = {
-            "jsonrpc": "2.0",
-            "id": self._msg_id,
-            "method": "tools/list",
-            "params": {}
-        }
+        req = {"jsonrpc": "2.0", "id": self._msg_id, "method": "tools/list", "params": {}}
         self._send(req)
         self._msg_id += 1
-        
+
         # Simulated response handling
         return []
 

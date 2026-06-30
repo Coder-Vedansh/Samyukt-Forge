@@ -1,11 +1,13 @@
 import json
-from typing import Dict, Any
 from pathlib import Path
+from typing import Any, Dict
+
 
 class CheckpointManager:
     """
     Handles saving and resuming state so workflows can be paused and resumed.
     """
+
     def __init__(self, storage_dir: str):
         self.storage_dir = Path(storage_dir)
         self.storage_dir.mkdir(parents=True, exist_ok=True)

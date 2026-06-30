@@ -1,6 +1,8 @@
 from enum import Enum
-from pydantic import BaseModel, Field
 from typing import Any, Dict, Optional
+
+from pydantic import BaseModel, Field
+
 
 class TaskState(str, Enum):
     PENDING = "PENDING"
@@ -8,6 +10,7 @@ class TaskState(str, Enum):
     SUCCESS = "SUCCESS"
     FAILED = "FAILED"
     CANCELLED = "CANCELLED"
+
 
 class TaskContext(BaseModel):
     task_id: str

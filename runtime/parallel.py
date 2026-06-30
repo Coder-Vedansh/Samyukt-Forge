@@ -1,11 +1,14 @@
 import asyncio
-from typing import List, Callable, Awaitable, Any
+from typing import Any, Awaitable, Callable, List
+
 from runtime.worker_pool import WorkerPool
+
 
 class ParallelExecutor:
     """
     Executes multiple tasks in parallel using a worker pool.
     """
+
     def __init__(self, pool: WorkerPool):
         self.pool = pool
 
