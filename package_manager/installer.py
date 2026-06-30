@@ -1,10 +1,11 @@
 import shutil
 from pathlib import Path
 
-from package_manager.manifest import ManifestManager
+from package_manager.manifest import LockfileManager, ManifestManager
 from package_manager.marketplace import MarketplaceClient
 from package_manager.resolver import DependencyResolver
 from package_manager.security import PackageVerifier
+from workspace.manager import WorkspaceManager
 
 
 class InstallationError(Exception):
@@ -17,10 +18,10 @@ class PackageInstaller:
     """
 
     def __init__(self, workspace_dir: str):
-        self.workspace_dir = Path(workspace_dir)
-        self.plugins_dir = self.workspace_dir / "plugins"
-        self.plugins_dir.mkdir(parents=True, exist_ok=True)
+        self.workspace_manager = WorkspaceManager(workspace_dir)
+        self.plugins_dir = self.workspace_manager.get_path("plugins")
         self.manifest_manager = ManifestManager(workspace_dir)
+        self.lockfile_manager = LockfileManager(workspace_dir)
         self.resolver = DependencyResolver()
         self.marketplace = MarketplaceClient()
 
@@ -46,6 +47,12 @@ class PackageInstaller:
         # Simulation: In reality, we'd download the file and call `install_offline`
 
         self.manifest_manager.add_dependency(package_name, metadata["version"])
+
+        # In a real resolution we'd gather all versions and hashes
+        lock_data = self.lockfile_manager.load_lock()
+        lock_data[package_name] = {"version": metadata["version"], "hash": "sha256-mock-hash"}
+        self.lockfile_manager.write_lock(lock_data)
+
         print(f"Successfully installed {package_name}!")
 
     def install_offline(self, package_path: str) -> None:

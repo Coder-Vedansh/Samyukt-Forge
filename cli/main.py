@@ -6,6 +6,7 @@ from cli.marketplace import app as marketplace_app
 from cli.packages import extensions_app, packages_app
 from cli.providers import models_app, providers_app
 from cli.runtime import memory_app, workflow_app
+from workspace.manager import WorkspaceManager
 
 app = typer.Typer(name="forge", help="Forge CLI - The Linux for AI", no_args_is_help=True)
 
@@ -23,7 +24,10 @@ app.add_typer(workflow_app, name="workflow")
 @app.command()
 def init():
     """Initializes a new Forge Workspace in the current directory."""
+    manager = WorkspaceManager(".")
+    manager.init_workspace()
     print("[bold green]Initialized empty Forge workspace.[/bold green]")
+    print(f"Workspace DB and directories generated at: {manager.forge_dir}")
 
 
 @app.command()

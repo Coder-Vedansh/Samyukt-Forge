@@ -61,3 +61,21 @@ class ManifestManager:
         if name in manifest.dependencies:
             del manifest.dependencies[name]
             self.save(manifest)
+
+
+class LockfileManager:
+    """Manages the forge.lock file for deterministic installations."""
+
+    def __init__(self, workspace_dir: str):
+        self.lockfile_path = Path(workspace_dir) / "forge.lock"
+
+    def write_lock(self, resolved_deps: Dict[str, Dict[str, str]]) -> None:
+        """Writes the exactly resolved dependencies and their signatures to the lockfile."""
+        with open(self.lockfile_path, "w") as f:
+            json.dump({"dependencies": resolved_deps}, f, indent=2)
+
+    def load_lock(self) -> Dict[str, Dict[str, str]]:
+        if not self.lockfile_path.exists():
+            return {}
+        with open(self.lockfile_path, "r") as f:
+            return json.load(f).get("dependencies", {})
