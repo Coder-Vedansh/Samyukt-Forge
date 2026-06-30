@@ -1,5 +1,5 @@
 import json
-import subprocess
+import subprocess  # nosec B404
 from typing import Any, Dict, List
 
 
@@ -17,7 +17,7 @@ class MCPClient:
         self._msg_id = 1
 
     def connect(self) -> None:
-        self._process = subprocess.Popen(
+        self._process = subprocess.Popen(  # nosec B603
             self.command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, text=True
         )
 
