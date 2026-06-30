@@ -13,14 +13,14 @@ theme:
 
 nav:
   - Home: index.md
-  - Getting Started:
-    - Installation: getting-started/installation.md
-    - Quickstart: getting-started/quickstart.md
-  - Architecture: architecture/index.md
-  - Plugins:
-    - Creating a Plugin: plugins/create.md
-    - API Reference: plugins/api.md
-  - MCP Layer: mcp/index.md
+  - User Docs: user/index.md
+  - Developer Docs: developer/index.md
+  - Plugin Docs: plugins/index.md
+  - SDK Docs: sdk/index.md
+  - Architecture Docs: architecture/index.md
+  - CLI Docs: cli/index.md
+  - Tutorials: tutorials/index.md
+  - Examples: examples/index.md
 
 plugins:
   - search
