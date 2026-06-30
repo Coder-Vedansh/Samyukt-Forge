@@ -2,7 +2,8 @@ import typer
 from rich import print
 
 from cli.config import app as config_app
-from cli.packages import extensions_app, marketplace_app, packages_app
+from cli.marketplace import app as marketplace_app
+from cli.packages import extensions_app, packages_app
 from cli.providers import models_app, providers_app
 from cli.runtime import memory_app, workflow_app
 

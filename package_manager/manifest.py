@@ -1,6 +1,6 @@
 import json
 from pathlib import Path
-from typing import Dict
+from typing import Dict, List, Optional
 
 from pydantic import BaseModel
 
@@ -15,6 +15,20 @@ class PluginManifest(BaseModel):
     version: str
     description: str
     dependencies: Dict[str, str] = {}
+
+
+class PackageManifest(BaseModel):
+    """Defines the metadata structure for a .forgepkg file."""
+
+    name: str
+    version: str
+    description: str
+    author: str
+    dependencies: Dict[str, str] = {}
+    entrypoint: str
+    permissions: List[str] = []
+    compatibility: str = ">=0.1.0"
+    signature: Optional[str] = None
 
 
 class ManifestManager:
